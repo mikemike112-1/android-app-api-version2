@@ -1,17 +1,17 @@
 const express = require('express');
-//const mysql = require('mysql');
-//const credentials = require("./dbCred");
+const mysql = require('mysql');
+const credentials = require("./dbCred");
 var app = express();
 
 const port = process.env.PORT || 8080 ;
-/*
+
 var con = mysql.createConnection({
     host: "androidclass.ctbicidjx9pg.us-east-2.rds.amazonaws.com",
     user: "admin",
     password: "password",
     database: "androidClass"
 });
-*/
+
 
 app.get('/', function (req, res) {
 
