@@ -15,7 +15,7 @@ var con = mysql.createConnection({
 
 app.get('/', function (req, res) {
 
-    res.send("You have hit root. Use... /foodBanks /restaurants")
+    res.send("You have hit root for data. Use... /foodBanks /restaurants")
 });
 
 
