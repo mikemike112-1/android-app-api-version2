@@ -10,21 +10,65 @@ var con = mysql.createConnection({
     host: "androidclass.ctbicidjx9pg.us-east-2.rds.amazonaws.com",
     user: "admin",
     password: "password",
-    database: "androidclass"
+    database: "editables"
 });
 
+con.connect(function(err) {
+    if(err) throw err;
+});
 
+//www.yoursite.com?myparam1={id1}&myparam2={id2} 
+//http://localhost:8080/?myparam1={id1}&myparam2={id2}
 app.get('/', function (req, res) {
 
-    con.connect(function(err) {
-        if(err) throw err;
-        con.query("SELECT * FROM customers", function (err, result, fields){
+    var idQ = req.query.idP;
+    var nameQ = req.query.nameP;
+    var locationQ = req.query.locationP;
+    var distanceQ = req.query.distanceP;
+    var picURLQ = req.query.picURLP;
+    var isAcceptingQ = req.query.isAcceptingP;
+
+    //url parameters format is...
+    //?idP={idQ}
+
+    console.log(req.query);
+    console.log(req.query.myparam1); 
+
+    //"INSERT INTO restaurants (id, name, location, distance, picURL, isAccepting) VALUES ('a', 'b', 'c', 'd', 'e', 'f')";
+    //var restaurantQuery = "UPDATE restaurants SET id = 'idB', name = 'nameA', location = 'locationA', distance = 'distanceA', picURL = 'picURLA', isAccepting = 'isAcceptingA'";
+
+    //STOPPED HERE 
+    var restaurantQuery 
+    = "UPDATE restaurants SET " 
+    + "id = '" 
+    + idQ 
+    + "', name = '"
+    + nameQ  
+    + "', location = '"
+    + locationQ
+    + "', distance = '"
+    + distanceQ
+    + "', picURL = '" 
+    + picURLQ
+    + "', isAccepting = '"
+    + isAcceptingQ
+    + "'";
+
+    con.query(restaurantQuery, function (err, result, fields){
             if(err) throw err;
             console.log(result);
-        });
+            res.send(result);
     });
 
-    res.send("test")
+    //     con.query("SELECT * FROM testTable", function (err, result, fields){
+    //         if(err) throw err;
+    //         console.log(result);
+
+    // console.log("--------------");
+    // //console.log(result.rows);
+    // res.send(JSON.parse(JSON.stringify(result)));
+    // });
+
 
     //res.send("You have hit root for data. Use... /foodBanks /restaurants");
 });
