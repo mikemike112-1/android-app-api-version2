@@ -5,23 +5,39 @@ var app = express();
 
 const port = process.env.PORT || 8080 ;
 
+
 var con = mysql.createConnection({
     host: "androidclass.ctbicidjx9pg.us-east-2.rds.amazonaws.com",
     user: "admin",
     password: "password",
-    database: "androidClass"
+    database: "androidclass"
 });
 
 
 app.get('/', function (req, res) {
 
-    res.send("You have hit root for data. Use... /foodBanks /restaurants")
+    con.connect(function(err) {
+        if(err) throw err;
+        con.query("SELECT * FROM customers", function (err, result, fields){
+            if(err) throw err;
+            console.log(result);
+        });
+    });
+
+    res.send("test")
+
+    //res.send("You have hit root for data. Use... /foodBanks /restaurants");
 });
 
 
 
 app.get('/foodBanks', function (req, res) {
 
+
+
+    res.send("hello");
+
+    /*
     res.json([
         {
             id: 1,
@@ -40,11 +56,15 @@ app.get('/foodBanks', function (req, res) {
             isAccepting: true
         }
     ]);
+    */
 
 });
 
 app.get('/restaurants', function (req, res) {
 
+    res.send("hi");
+
+    /*
     res.json([
         {
             id: 1,
@@ -63,6 +83,7 @@ app.get('/restaurants', function (req, res) {
             isAccepting: true
         }
     ]);
+    */
 });
 
 //var server = 
